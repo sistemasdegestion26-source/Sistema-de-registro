@@ -360,7 +360,9 @@ AUTHORIZED_ACCOUNTS['protocolo'] = AUTHORIZED_ACCOUNTS['protocolo1'];
 
 function segmentsOf(req: VercelRequest): string[] {
   const raw = req.query.path;
-  const arr = Array.isArray(raw) ? raw : raw ? [raw] : [];
+  // Vercel puede entregar el catch-all como arreglo ["auth","login"] o como
+  // texto unido "auth/login" (p.ej. cuando hay rewrites en vercel.json).
+  const arr = Array.isArray(raw) ? raw : raw ? String(raw).split('/') : [];
   return arr.map((s) => String(s)).filter(Boolean);
 }
 
