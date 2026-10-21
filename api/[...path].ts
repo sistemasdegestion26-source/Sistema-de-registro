@@ -360,10 +360,25 @@ AUTHORIZED_ACCOUNTS['protocolo'] = AUTHORIZED_ACCOUNTS['protocolo1'];
 
 function segmentsOf(req: VercelRequest): string[] {
   const raw = req.query.path;
-  // Vercel puede entregar el catch-all como arreglo ["auth","login"] o como
-  // texto unido "auth/login" (p.ej. cuando hay rewrites en vercel.json).
+  // Vercel puede entregar el catch-all como arreglo ["auth","login"], como
+  // texto unido "auth/login", o no entregarlo en absoluto según el routing.
   const arr = Array.isArray(raw) ? raw : raw ? String(raw).split('/') : [];
-  return arr.map((s) => String(s)).filter(Boolean);
+  const segs = arr.map((s) => String(s)).filter(Boolean);
+  if (segs.length > 0 && segs[0] !== '[...path]') return segs;
+  // Fallback definitivo: extraer los segmentos de la URL original
+  // (/api/auth/login -> ['auth', 'login'])
+  const urlPath = String((req as any).url || '').split('?')[0];
+  return urlPath
+    .replace(/^\/api\/?/, '')
+    .split('/')
+    .map((s) => {
+      try {
+        return decodeURIComponent(s);
+      } catch {
+        return s;
+      }
+    })
+    .filter((s) => s && s !== '[...path]');
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
