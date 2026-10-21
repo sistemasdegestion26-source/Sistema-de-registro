@@ -182,7 +182,7 @@ export const InformesForm: React.FC<InformesFormProps> = ({
 
   // Sync with incoming prop or global custom events (real-time multi-user)
   useEffect(() => {
-    if (funcionarios) {
+    if (funcionarios && funcionarios.length > 0) {
       setDirectorioList(funcionarios);
     }
   }, [funcionarios]);
@@ -190,7 +190,7 @@ export const InformesForm: React.FC<InformesFormProps> = ({
   useEffect(() => {
     const handleSync = (e: any) => {
       const list = e?.detail || getStoredFuncionarios();
-      if (Array.isArray(list)) {
+      if (Array.isArray(list) && list.length > 0) {
         setDirectorioList(list);
       }
     };
@@ -201,6 +201,13 @@ export const InformesForm: React.FC<InformesFormProps> = ({
       window.removeEventListener('tinaquillo_db_sync', handleSync);
     };
   }, []);
+
+  // Most up-to-date funcionarios list combining props, state and persistent storage
+  const effectiveDirectorio = useMemo(() => {
+    if (funcionarios && funcionarios.length > 0) return funcionarios;
+    if (directorioList && directorioList.length > 0) return directorioList;
+    return getStoredFuncionarios();
+  }, [funcionarios, directorioList]);
 
   // Normalización para búsqueda de dependencias
   const normalizeDep = (dep: string) => {
@@ -215,28 +222,27 @@ export const InformesForm: React.FC<InformesFormProps> = ({
   const funcionariosDeLaDependencia = useMemo(() => {
     if (!selectedDependenciaNombre) return [];
     const targetNorm = normalizeDep(selectedDependenciaNombre);
-    return directorioList.filter((f) => {
+    return effectiveDirectorio.filter((f) => {
       const fDep = normalizeDep(f.dependencia || '');
       return fDep === targetNorm || fDep.includes(targetNorm) || targetNorm.includes(fDep);
     });
-  }, [selectedDependenciaNombre, directorioList]);
+  }, [selectedDependenciaNombre, effectiveDirectorio]);
 
   // AUTOMATIZACIÓN DE DATOS DEL FUNCIONARIO EN TIEMPO REAL:
   // Carga automática del funcionario si está registrado en el directorio oficial por el Usuario Principal.
-  // EN CASO DE NO HABER REGISTRADO EN FUNCIONARIO EN EL USUARIO PRINCIPAL NO DEBE APARECER NINGUN DATO.
   useEffect(() => {
     if (initialData) return; // Si es edición de un informe existente, preservar los datos originales con los que se guardó
 
     if (!selectedDependenciaNombre || funcionariosDeLaDependencia.length === 0) {
-      // EN CASO DE NO HABER REGISTRADO EN FUNCIONARIO EN EL USUARIO PRINCIPAL NO DEBE APARECER NINGUN DATO
-      setSelectedCargo('');
-      setNombresApellidos('');
-      setCedula('');
-      setTelefono('');
-      setNumeroResolucion('');
-      setFechaResolucion('');
-      setSelectedFuncionarioId('');
-      setAutoFilledInfo(null);
+      if (selectedDependenciaNombre && !autoFilledInfo) {
+        setSelectedCargo('');
+        setNombresApellidos('');
+        setCedula('');
+        setTelefono('');
+        setNumeroResolucion('');
+        setFechaResolucion('');
+        setSelectedFuncionarioId('');
+      }
       return;
     }
 
@@ -332,14 +338,69 @@ export const InformesForm: React.FC<InformesFormProps> = ({
     }
   };
 
-  // Manejo de cambio de dependencia
+  // Manejo de cambio de funcionario cuando hay múltiples registrados
+  const handleFuncionarioChange = (funcId: string) => {
+    setSelectedFuncionarioId(funcId);
+    const match = funcionariosDeLaDependencia.find((f) => f.id === funcId);
+    if (match) {
+      setSelectedCargo(match.cargo || '');
+      setNombresApellidos(match.nombresApellidos || '');
+      setCedula(match.cedula || '');
+      setTelefono(match.telefono || '');
+      setNumeroResolucion(match.numeroResolucion || '');
+      setFechaResolucion(match.fechaResolucion || '');
+      setAutoFilledInfo(
+        `${match.nombresApellidos} (${match.cargo || 'TITULAR'}) - C.I. ${match.cedula}`
+      );
+    }
+  };
+
+  // Manejo de cambio de dependencia con autollenado instantáneo
   const handleDependenciaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const depName = e.target.value;
     setSelectedDependenciaNombre(depName);
-    setSelectedFuncionarioId('');
-    setSelectedCargo('');
     setIsCustomCargo(false);
-    setAutoFilledInfo(null);
+
+    if (!depName) {
+      setSelectedFuncionarioId('');
+      setSelectedCargo('');
+      setNombresApellidos('');
+      setCedula('');
+      setTelefono('');
+      setNumeroResolucion('');
+      setFechaResolucion('');
+      setAutoFilledInfo(null);
+      return;
+    }
+
+    const targetNorm = normalizeDep(depName);
+    const matchingFuncs = effectiveDirectorio.filter((f) => {
+      const fDep = normalizeDep(f.dependencia || '');
+      return fDep === targetNorm || fDep.includes(targetNorm) || targetNorm.includes(fDep);
+    });
+
+    if (matchingFuncs.length > 0) {
+      const funcionario = matchingFuncs[0];
+      setSelectedFuncionarioId(funcionario.id);
+      setSelectedCargo(funcionario.cargo || '');
+      setNombresApellidos(funcionario.nombresApellidos || '');
+      setCedula(funcionario.cedula || '');
+      setTelefono(funcionario.telefono || '');
+      setNumeroResolucion(funcionario.numeroResolucion || '');
+      setFechaResolucion(funcionario.fechaResolucion || '');
+      setAutoFilledInfo(
+        `${funcionario.nombresApellidos} (${funcionario.cargo || 'TITULAR'}) - C.I. ${funcionario.cedula}`
+      );
+    } else {
+      setSelectedFuncionarioId('');
+      setSelectedCargo('');
+      setNombresApellidos('');
+      setCedula('');
+      setTelefono('');
+      setNumeroResolucion('');
+      setFechaResolucion('');
+      setAutoFilledInfo(null);
+    }
   };
 
   // Memorandum Interno: Additional points management
@@ -888,7 +949,7 @@ export const InformesForm: React.FC<InformesFormProps> = ({
                 </label>
                 <select
                   value={selectedFuncionarioId}
-                  onChange={(e) => setSelectedFuncionarioId(e.target.value)}
+                  onChange={(e) => handleFuncionarioChange(e.target.value)}
                   className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs sm:text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-600"
                 >
                   {funcionariosDeLaDependencia.map((f) => (

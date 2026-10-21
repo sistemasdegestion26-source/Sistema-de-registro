@@ -73,11 +73,13 @@ export const PlanificacionPoaForm: React.FC<PlanificacionPoaFormProps> = ({
   // Find official titular for the selected dependency
   const titularOficial = useMemo(() => {
     if (!selectedDependencia) return null;
-    return funcionarios.find(
-      (f) =>
-        f.dependencia &&
-        f.dependencia.trim().toUpperCase() === selectedDependencia.trim().toUpperCase()
-    );
+    const norm = selectedDependencia.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase();
+    const list = funcionarios && funcionarios.length > 0 ? funcionarios : [];
+    return list.find((f) => {
+      if (!f.dependencia) return false;
+      const fNorm = f.dependencia.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase();
+      return fNorm === norm || fNorm.includes(norm) || norm.includes(fNorm);
+    });
   }, [selectedDependencia, funcionarios]);
 
   // Recalculate % automatically when targets change (if autoCalculate is active)
