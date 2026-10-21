@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "Alcaldía de Tinaquillo - Dirección General",
+  "short_name": "TinaquilloDG",
+  "description": "Sistema de Gestión de Solicitudes y Registro de Informes de Dependencias Centralizadas y Descentralizadas de la Alcaldía de Tinaquillo.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0d7a42",
+  "theme_color": "#0d7a42",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/logo-oficial.jpg",
+      "sizes": "192x192 512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

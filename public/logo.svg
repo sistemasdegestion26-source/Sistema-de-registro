@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Outer Gold Gradient -->
+    <linearGradient id="goldRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5deb3" />
+      <stop offset="25%" stop-color="#d4af37" />
+      <stop offset="50%" stop-color="#aa771c" />
+      <stop offset="75%" stop-color="#ffd700" />
+      <stop offset="100%" stop-color="#8b5a00" />
+    </linearGradient>
+    <linearGradient id="innerSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fed7aa" />
+      <stop offset="40%" stop-color="#fef3c7" />
+      <stop offset="70%" stop-color="#fef9c3" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+    <linearGradient id="fieldGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#166534" />
+      <stop offset="100%" stop-color="#14532d" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Base outer circle shadow -->
+  <circle cx="250" cy="250" r="240" fill="url(#goldRim)" filter="url(#shadow)" stroke="#5c3a00" stroke-width="4" />
+  
+  <!-- Subtle circular groove -->
+  <circle cx="250" cy="250" r="228" fill="none" stroke="#78350f" stroke-width="2" opacity="0.6" />
+  
+  <!-- Inner ring -->
+  <circle cx="250" cy="250" r="172" fill="#3b2203" stroke="#d4af37" stroke-width="4" />
+
+  <!-- Center Artwork Disc -->
+  <g clip-path="url(#centerClip)">
+    <clipPath id="centerClip">
+      <circle cx="250" cy="250" r="168" />
+    </clipPath>
+
+    <!-- Sky with warm sunrise glow -->
+    <rect x="70" y="70" width="360" height="360" fill="url(#innerSky)" />
+    
+    <!-- Sun glow behind monument -->
+    <circle cx="250" cy="240" r="85" fill="#fde047" opacity="0.45" />
+
+    <!-- Green prospective field in foreground -->
+    <path d="M 80,260 L 420,260 L 420,420 L 80,420 Z" fill="url(#fieldGreen)" />
+
+    <!-- Field perspective grid lines -->
+    <g stroke="#15803d" stroke-width="2.5" opacity="0.8">
+      <line x1="250" y1="260" x2="100" y2="420" />
+      <line x1="250" y1="260" x2="140" y2="420" />
+      <line x1="250" y1="260" x2="180" y2="420" />
+      <line x1="250" y1="260" x2="220" y2="420" />
+      <line x1="250" y1="260" x2="250" y2="420" />
+      <line x1="250" y1="260" x2="280" y2="420" />
+      <line x1="250" y1="260" x2="320" y2="420" />
+      <line x1="250" y1="260" x2="360" y2="420" />
+      <line x1="250" y1="260" x2="400" y2="420" />
+    </g>
+
+    <!-- Stone Arch Monument (El Arco) -->
+    <!-- Side balustrades -->
+    <rect x="155" y="246" width="60" height="26" fill="#e2d9cc" stroke="#78716c" stroke-width="1.5" />
+    <!-- Balusters left -->
+    <g fill="#a8a29e">
+      <rect x="162" y="252" width="5" height="15" rx="1"/>
+      <rect x="173" y="252" width="5" height="15" rx="1"/>
+      <rect x="184" y="252" width="5" height="15" rx="1"/>
+      <rect x="195" y="252" width="5" height="15" rx="1"/>
+      <rect x="206" y="252" width="5" height="15" rx="1"/>
+    </g>
+
+    <!-- Balusters right -->
+    <rect x="285" y="246" width="60" height="26" fill="#e2d9cc" stroke="#78716c" stroke-width="1.5" />
+    <g fill="#a8a29e">
+      <rect x="289" y="252" width="5" height="15" rx="1"/>
+      <rect x="300" y="252" width="5" height="15" rx="1"/>
+      <rect x="311" y="252" width="5" height="15" rx="1"/>
+      <rect x="322" y="252" width="5" height="15" rx="1"/>
+      <rect x="333" y="252" width="5" height="15" rx="1"/>
+    </g>
+
+    <!-- Central Monument Pillars & Arch -->
+    <rect x="214" y="165" width="72" height="100" fill="#f5f0eb" stroke="#57534e" stroke-width="2" />
+    <!-- Masonry lines -->
+    <line x1="214" y1="180" x2="286" y2="180" stroke="#a8a29e" stroke-width="1" />
+    <line x1="214" y1="195" x2="286" y2="195" stroke="#a8a29e" stroke-width="1" />
+    <line x1="214" y1="210" x2="286" y2="210" stroke="#a8a29e" stroke-width="1" />
+    <line x1="214" y1="225" x2="286" y2="225" stroke="#a8a29e" stroke-width="1" />
+    <line x1="214" y1="240" x2="286" y2="240" stroke="#a8a29e" stroke-width="1" />
+
+    <!-- Arch opening with light sky inside -->
+    <path d="M 233,265 L 233,215 Q 250,195 267,215 L 267,265 Z" fill="#fffbeb" stroke="#44403c" stroke-width="2.5" />
+    <!-- Arch keystone & ring stones -->
+    <path d="M 230,215 Q 250,190 270,215" fill="none" stroke="#78716c" stroke-width="3" stroke-dasharray="4,3" />
+
+    <!-- Monument Entablature / Top cornice -->
+    <rect x="210" y="155" width="80" height="12" fill="#e7e0d8" stroke="#44403c" stroke-width="2" />
+    <rect x="218" y="147" width="64" height="9" fill="#d6ceb2" stroke="#44403c" stroke-width="1.5" />
+
+    <!-- Flagpole on top of the arch -->
+    <line x1="250" y1="147" x2="250" y2="110" stroke="#475569" stroke-width="2.5" />
+    <circle cx="250" cy="110" r="3" fill="#f59e0b" />
+
+    <!-- Venezuelan Flag (Yellow, Blue, Red) waving -->
+    <path d="M 251,113 C 265,110 275,120 290,115 L 290,123 C 275,128 265,118 251,121 Z" fill="#fbbf24" />
+    <path d="M 251,121 C 265,118 275,128 290,123 L 290,131 C 275,136 265,126 251,129 Z" fill="#1d4ed8" />
+    <path d="M 251,129 C 265,126 275,136 290,131 L 290,139 C 275,144 265,134 251,137 Z" fill="#dc2626" />
+  </g>
+
+  <!-- Inner Gold Bevel Ring -->
+  <circle cx="250" cy="250" r="168" fill="none" stroke="url(#goldRim)" stroke-width="6" />
+
+  <!-- Curved Text Paths -->
+  <!-- Upper Path: DIRECCIÓN GENERAL -->
+  <path id="textArcTop" d="M 68,250 A 182,182 0 0,1 432,250" fill="none" />
+  <!-- Lower Path: ALCALDÍA DE TINAQUILLO -->
+  <path id="textArcBottom" d="M 432,250 A 182,182 0 0,1 68,250" fill="none" />
+
+  <!-- Top Text -->
+  <text fill="#0f172a" font-family="'Arial Black', 'Impact', sans-serif" font-weight="900" font-size="28.5" letter-spacing="3.5">
+    <textPath href="#textArcTop" startOffset="50%" text-anchor="middle">
+      DIRECCIÓN GENERAL
+    </textPath>
+  </text>
+  
+  <!-- Bottom Text -->
+  <text fill="#0f172a" font-family="'Arial Black', 'Impact', sans-serif" font-weight="900" font-size="26" letter-spacing="3.5">
+    <textPath href="#textArcBottom" startOffset="50%" text-anchor="middle">
+      ALCALDÍA DE TINAQUILLO
+    </textPath>
+  </text>
+
+  <!-- Five-pointed star ornaments on sides -->
+  <g fill="#1e293b">
+    <polygon points="58,250 61,257 68,257 62,261 64,268 58,264 52,268 54,261 48,257 55,257" />
+    <polygon points="442,250 445,257 452,257 446,261 448,268 442,264 436,268 438,261 432,257 439,257" />
+  </g>
+</svg>

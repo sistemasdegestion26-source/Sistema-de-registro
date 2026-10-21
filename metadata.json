@@ -1,0 +1,6 @@
+{
+  "name": "Alcaldía del Municipio Autónomo Tinaquillo - Dirección General",
+  "description": "Sistema Institucional de Gestión de Solicitudes, Informes de Gestión, Registro de Asistencia a Actividades y Respaldo Oficial de la Alcaldía del Municipio Autónomo Tinaquillo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

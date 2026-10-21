@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Alcaldía del Municipio Autónomo Tinaquillo - Dirección General</title>
+    <meta name="description" content="Sistema Institucional de Gestión de Solicitudes, Informes de Gestión, Registro de Asistencia a Actividades y Respaldo Oficial de la Alcaldía del Municipio Autónomo Tinaquillo." />
+    <meta property="og:title" content="Alcaldía del Municipio Autónomo Tinaquillo - Dirección General" />
+    <meta property="og:description" content="Sistema Institucional de Gestión de Solicitudes, Informes de Gestión, Registro de Asistencia a Actividades y Respaldo Oficial de la Alcaldía del Municipio Autónomo Tinaquillo." />
+    <meta property="og:type" content="website" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#0d7a42" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Tinaquillo DG" />
+    <link rel="icon" type="image/png" href="/logo-oficial.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <!-- Google Fonts for Institutional Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <!-- Institutional & Error Handling Bootstrap -->
+    <script>
+      (function() {
+        // Ensure window.fetch is configurable and writable so external scripts or parent wrappers can intercept it safely without throwing
+        try {
+          if (typeof window !== 'undefined' && window.fetch) {
+            var originalFetch = window.fetch;
+            var desc = Object.getOwnPropertyDescriptor(window, 'fetch') || Object.getOwnPropertyDescriptor(Object.getPrototypeOf(window), 'fetch');
+            if (desc && !desc.writable && !desc.set) {
+              try {
+                Object.defineProperty(window, 'fetch', {
+                  get: function() { return originalFetch; },
+                  set: function(fn) { originalFetch = fn; },
+                  configurable: true,
+                  enumerable: true
+                });
+              } catch (e) {}
+            }
+          }
+        } catch (e) {}
+
+        function isBenign(msg) {
+          if (!msg) return false;
+          var str = String(msg).toLowerCase();
+          return (
+            str.indexOf('websocket') !== -1 ||
+            str.indexOf('[vite]') !== -1 ||
+            str.indexOf('closed without opened') !== -1 ||
+            str.indexOf('cerrado sin haber abierto') !== -1 ||
+            str.indexOf('cerrado sin abrirse') !== -1 ||
+            str.indexOf('failed to connect to websocket') !== -1 ||
+            str.indexOf('cannot set property fetch') !== -1 ||
+            str.indexOf('which has only a getter') !== -1
+          );
+        }
+        var origError = console.error;
+        console.error = function() {
+          var full = Array.prototype.slice.call(arguments).map(function(a) {
+            return String(a && (a.message || a.stack || a));
+          }).join(' ');
+          if (isBenign(full)) return;
+          return origError.apply(console, arguments);
+        };
+        var origWarn = console.warn;
+        console.warn = function() {
+          var full = Array.prototype.slice.call(arguments).map(function(a) {
+            return String(a && (a.message || a.stack || a));
+          }).join(' ');
+          if (isBenign(full)) return;
+          return origWarn.apply(console, arguments);
+        };
+        window.addEventListener(
+          'unhandledrejection',
+          function(event) {
+            var reason = event && (event.reason || event);
+            var msg = typeof reason === 'string' ? reason : (reason && (reason.message || reason.stack || reason.description)) || '';
+            if (isBenign(msg)) {
+              event.preventDefault();
+              if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+              if (event.stopPropagation) event.stopPropagation();
+              return true;
+            }
+          },
+          true
+        );
+        window.addEventListener(
+          'error',
+          function(event) {
+            var msg = (event && (event.message || (event.error && (event.error.message || event.error.stack)))) || '';
+            if (isBenign(msg)) {
+              event.preventDefault();
+              if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+              if (event.stopPropagation) event.stopPropagation();
+              return true;
+            }
+          },
+          true
+        );
+      })();
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased selection:bg-emerald-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

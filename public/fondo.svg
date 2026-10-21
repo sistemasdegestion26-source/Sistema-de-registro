@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Left Green Gradient -->
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="70%" y2="100%">
+      <stop offset="0%" stop-color="#046328" />
+      <stop offset="35%" stop-color="#0f8c3c" />
+      <stop offset="65%" stop-color="#40b848" />
+      <stop offset="85%" stop-color="#84cc16" />
+      <stop offset="100%" stop-color="#065f29" />
+    </linearGradient>
+
+    <!-- Right Blue Gradient -->
+    <linearGradient id="blueGrad" x1="30%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00a3ff" />
+      <stop offset="40%" stop-color="#0077e6" />
+      <stop offset="70%" stop-color="#0052cc" />
+      <stop offset="100%" stop-color="#063288" />
+    </linearGradient>
+
+    <!-- Arc Border Gradients -->
+    <linearGradient id="neonGreenLine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ff66" />
+      <stop offset="100%" stop-color="#00cc44" />
+    </linearGradient>
+
+    <linearGradient id="cyanLine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="100%" stop-color="#0077ff" />
+    </linearGradient>
+
+    <linearGradient id="darkBlueBand" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2a7a" />
+      <stop offset="100%" stop-color="#041442" />
+    </linearGradient>
+  </defs>
+
+  <!-- Left Base: Vibrant Green Field -->
+  <rect width="1920" height="1080" fill="url(#greenGrad)" />
+
+  <!-- Subtle mesh waves in green area -->
+  <g fill="none" stroke="#22c55e" stroke-width="1.2" opacity="0.35">
+    <path d="M -100,200 C 300,50 600,450 1000,250 C 1200,150 1400,300 1600,200" />
+    <path d="M -100,230 C 300,80 600,480 1000,280 C 1200,180 1400,330 1600,230" />
+    <path d="M -100,260 C 300,110 600,510 1000,310 C 1200,210 1400,360 1600,260" />
+    <path d="M -100,290 C 300,140 600,540 1000,340 C 1200,240 1400,390 1600,290" />
+    <path d="M -100,320 C 300,170 600,570 1000,370 C 1200,270 1400,420 1600,320" />
+    
+    <path d="M -100,600 C 250,750 550,550 900,750 C 1100,850 1350,700 1600,800" stroke="#84cc16" opacity="0.4" />
+    <path d="M -100,630 C 250,780 550,580 900,780 C 1100,880 1350,730 1600,830" stroke="#84cc16" opacity="0.4" />
+    <path d="M -100,660 C 250,810 550,610 900,810 C 1100,910 1350,760 1600,860" stroke="#84cc16" opacity="0.4" />
+  </g>
+
+  <!-- Right Side Arched Wave Separation -->
+  <!-- Dark Blue Backing ribbon -->
+  <path d="M 920,-50 C 1050,150 1200,400 1380,650 C 1520,850 1560,980 1580,1120 L 1950,1120 L 1950,-50 Z" fill="url(#darkBlueBand)" />
+
+  <!-- Main Blue Section -->
+  <path d="M 980,-50 C 1100,150 1240,410 1420,660 C 1550,850 1590,980 1610,1120 L 1950,1120 L 1950,-50 Z" fill="url(#blueGrad)" />
+
+  <!-- Distinctive multi-layer border ribbons matching "fondo 1.jpg" -->
+  <!-- 1. Neon Green Crest -->
+  <path d="M 915,-50 C 1045,150 1195,400 1375,650 C 1515,850 1555,980 1575,1120" fill="none" stroke="url(#neonGreenLine)" stroke-width="26" stroke-linecap="round" />
+
+  <!-- 2. Electric Cyan Middle Ribbon -->
+  <path d="M 940,-50 C 1065,150 1210,405 1390,655 C 1530,850 1570,980 1590,1120" fill="none" stroke="url(#cyanLine)" stroke-width="18" />
+
+  <!-- 3. Cobalt Blue Inner Ribbon -->
+  <path d="M 960,-50 C 1085,150 1225,408 1405,658 C 1540,850 1580,980 1600,1120" fill="none" stroke="#003bb3" stroke-width="12" />
+
+  <!-- 4. Soft Cyan Outer Glow line -->
+  <path d="M 975,-50 C 1095,150 1235,410 1415,660 C 1548,850 1588,980 1608,1120" fill="none" stroke="#7dd3fc" stroke-width="3" opacity="0.8" />
+</svg>
